@@ -1,0 +1,61 @@
+.App {
+  display:  flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(50deg, #9b6544, #c66fbc, rgb(96, 109, 228));
+  text-align: center;
+}
+.auth-form-container, .login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form-container {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 5rem;
+    padding: 5rem;
+  }
+}
+
+label {
+  padding: 0.1rem 0;
+  text-align: center;
+}
+
+input {
+  border: none;
+  border-radius: 10px ;
+  margin: 0.2rem 0;
+  padding: 15px;
+  text-align: center;
+}
+
+.login, .reg {
+  background-color: rgb(216, 206, 65);
+  border: none;
+  border-radius: 10px ;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.switch {
+  background-color: rgb(187, 132, 224);
+  border: none;
+  color: rgb(245, 231, 244);
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+h2{
+  color: antiquewhite;
+}
+.logo {
+  width: 2500;
+  height: 500;
+}
+
