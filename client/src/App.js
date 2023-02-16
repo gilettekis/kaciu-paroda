@@ -21,7 +21,10 @@ function App() {
   };
   
   return (
-  
+    <>
+    
+ 
+
     <div className="App">
       <Routes>
         <Route path='/' element={<PageLayout />}>
@@ -47,15 +50,14 @@ function App() {
           </RouteSuspense>
         } />
       </Routes>
-      
-         <><img src={logo} className='logo' alt = "logo"  /> </>
+      <><img src={logo} className='logo' alt = "logo"  /> </>
         
-      {
-        currentForm === "login" ?    <Login onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>
-      }
-   
-    </div>
-  
+    {
+      currentForm === "login" ?    <Login onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>
+    }
+ 
+      </div>
+      </>
     
   );
 }
