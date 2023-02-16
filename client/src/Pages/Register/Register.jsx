@@ -1,16 +1,55 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { Navigation } from "../../Components/Navigation/Navigation";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass]= useState('');
     const [name] = useState('');
     const [surname] = useState('');
+    const [ setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e)=> {
         e.preventDefault();
         console.log(email);
+        fetch(`${process.env.REACT_APP_API_URL}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                pass,
+                name,
+                surname
+            })
+
+        })
+        .then(res => {
+            if (res.status === 400) {
+                throw new Error('User already exists');
+            }
+
+            if (!res.ok) {
+                throw new Error('Something went wrong');
+            }
+
+            return res.json();
+        })
+        .then(data => {
+            navigate('/login');
+            setError('');
+        })
+        .catch((e) => {
+            setError(e.message);
+        })
+    
     }
     return (
+         <>
+         <Navigation />
+        
         <div className="auth-form-container">
             <h2>REGISTER</h2>
         <form className="register-form"onSubmit ={handleSubmit}>
@@ -26,5 +65,6 @@ export const Register = (props) => {
         </form>
         <button className="switch" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
         </div>
+        </>
     )
 }

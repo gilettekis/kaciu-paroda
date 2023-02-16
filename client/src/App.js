@@ -1,39 +1,61 @@
-import React, {useState} from "react";
-import logo from './logo.svg';
+import React, {   useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Login } from './Pages/Login/Login';
-import { Register } from './Pages/Register/Register';
+import { PageLayout } from './Components/PageLayout/PageLayout.jsx';
+import { RouteSuspense } from './Components/RouteSuspence/RouteSuspence';
+import { PageNotFound } from './Pages/PageNotFound/PageNotFound';
+import {ReactComponent as logo} from './Components/Logo/logo.svg';
+
+const Form = React.lazy(() => import('./Pages/Form/Form'));
+const Login = React.lazy(() => import('./Pages/Login/Login'));
+const Register = React.lazy(() => import('./Pages/Register/Register'));
 
 
 
 function App() {
   const [currentForm, setCurrentForm] = useState ('login');
-
+ 
   const toggleForm = (forName) => {
     setCurrentForm (forName);
-  }
+
+  };
   
   return (
-  <>
-     {/* <Routes>
-        <Route path="/" element={<PageLayout />}>
-          <Route index element={<Cats />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes> */}
   
     <div className="App">
+      <Routes>
+        <Route path='/' element={<PageLayout />}>
+          <Route index element={
+            <RouteSuspense>
+              <Form />
+            </RouteSuspense>
+          } />
+        </Route>
+        <Route path='/login' element={
+          <RouteSuspense>
+            <Login />
+          </RouteSuspense>
+        } />
+        <Route path='/register' element={
+          <RouteSuspense>
+            <Register />
+          </RouteSuspense>
+        } />
+        <Route path='*' element={
+          <RouteSuspense>
+            <PageNotFound />
+          </RouteSuspense>
+        } />
+      </Routes>
       
-         <><img className="logo" src={logo}  /> </>
+         <><img src={logo} className='logo' alt = "logo"  /> </>
         
       {
         currentForm === "login" ?    <Login onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>
       }
    
     </div>
-    </>
+  
     
   );
 }

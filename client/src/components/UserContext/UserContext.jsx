@@ -1,6 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
+import { useState } from "react";
 
 export const UserContext = createContext();
+
 
 export const UserContextWrapper = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -12,4 +14,4 @@ export const UserContextWrapper = ({ children }) => {
             {children}
         </UserContext.Provider>
     );
-}
+};
